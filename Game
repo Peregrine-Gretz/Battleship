@@ -29,6 +29,9 @@ rInvalidLU = [0, 1]
 dInvalidRD = [9]
 dInvalidLU = [0]
 
+null = 69420911666
+borderCheck = str(null)
+
 board = []
 
 movesLeft = 0
@@ -41,14 +44,18 @@ for i in range(10):
 
 ships = [   "C", "B", "S", "R", "D"]
 placable = [ 5,   4,   3,   3,   2]
-running = True
 print("B A T T L E   S H I P")
-printBoard()
-while running:  
-  printShips()
-  printPlaceable()
 
-  Ship = input("Ship to Place: >> ")
+running = True
+while running:
+  borderCheck = null
+
+  printBoard()  
+  print("")
+  printPlaceable()
+  printShips()
+
+  Ship = input("Ship to Place: ").upper()
 
   # GET SHIP AND LENGTH
   if Ship in ships:
@@ -60,8 +67,6 @@ while running:
     Dir = input("Enter direction letter: ").upper()
 
   #Checks the ship and direction to set map borders
-    null = 69420911666
-    borderCheck = str(null)
     if Ship == "C" and Dir == "R" or Ship == "C" and Dir == "D":
       borderCheck = cInvalidRD
     elif Ship == "C" and Dir == "L" or Ship == "C" and Dir == "U":
@@ -88,12 +93,20 @@ while running:
 
     #Border checking
     if borderCheck in RD and Row in borderCheck:
+      for j in range(50):
+        print("")      
       print("Invalid")
     elif borderCheck in RD and Col in borderCheck:
+      for j in range(50):
+        print("")
       print("Invalid")
     elif borderCheck in LU and Row in borderCheck:
+      for j in range(50):
+        print("")      
       print("Invalid")
     elif borderCheck in LU and Col in borderCheck:
+      for j in range(50):
+        print("")
       print("Invalid")
     else:
       board[Row][Col] = Ship
@@ -114,14 +127,16 @@ while running:
           for i in range(count -1):
             Row -= 1
             board[Row][Col] = Ship
+
       ships.remove(Ship)
       placable.remove(count)
+
       if movesLeft > 5:
         running = False
       movesLeft = movesLeft + 1
+      
       for j in range(50):
         print("")
-      printBoard()
   else:
     for j in range(50):
       print("")
