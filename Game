@@ -1,3 +1,6 @@
+def cpuBoard():
+  cpuBoard = []
+  
 def printBoard():
   print("  _0_1_2_3_4_5_6_7_8_9")
   r = 0
@@ -34,8 +37,6 @@ borderCheck = str(null)
 
 board = []
 
-movesLeft = 0
-
 for j in range(50):
   print("")
 
@@ -45,99 +46,111 @@ for i in range(10):
 ships = [   "C", "B", "S", "R", "D"]
 placable = [ 5,   4,   3,   3,   2]
 print("B A T T L E   S H I P")
+def placeLoop():
+  running = True
+  while running:
+    borderCheck = null
 
-running = True
-while running:
-  borderCheck = null
+    printBoard()  
+    print("")
+    printPlaceable()
+    printShips()
 
-  printBoard()  
-  print("")
-  printPlaceable()
-  printShips()
+    Ship = input("Ship to Place: ").upper()
 
-  Ship = input("Ship to Place: ").upper()
+    # GET SHIP AND LENGTH
+    if Ship in ships:
+      idx = ships.index(Ship)
+      count = placable[idx]
 
-  # GET SHIP AND LENGTH
-  if Ship in ships:
-    idx = ships.index(Ship)
-    count = placable[idx]
+      Row = int(input("Enter row: "))
+      Col = int(input("Enter column: "))
+      Dir = input("Enter direction letter: ").upper()
 
-    Row = int(input("Enter row: "))
-    Col = int(input("Enter column: "))
-    Dir = input("Enter direction letter: ").upper()
+    #Checks the ship and direction to set map borders
+      if Ship == "C" and Dir == "R" or Ship == "C" and Dir == "D":
+        borderCheck = cInvalidRD
+      elif Ship == "C" and Dir == "L" or Ship == "C" and Dir == "U":
+        borderCheck = cInvalidLU
+      elif Ship == "B" and Dir == "R" or Ship == "C" and Dir == "D":
+        borderCheck = bInvalidRD
+      elif Ship == "B" and Dir == "L" or Ship == "C" and Dir == "U":
+        borderCheck = bInvalidLU
+      elif Ship == "S" and Dir == "R" or Ship == "C" and Dir == "D":
+        borderCheck = sInvalidRD
+      elif Ship == "S" and Dir == "L" or Ship == "C" and Dir == "U":
+        borderCheck = sInvalidLU
+      elif Ship == "R" and Dir == "R" or Ship == "C" and Dir == "D":
+        borderCheck = rInvalidRD
+      elif Ship == "R" and Dir == "L" or Ship == "C" and Dir == "U":
+        borderCheck = rInvalidLU
+      elif Ship == "D" and Dir == "R" or Ship == "C" and Dir == "D":
+        borderCheck = dInvalidRD
+      elif Ship == "D" and Dir == "L" or Ship == "C" and Dir == "U":
+        borderCheck = dInvalidLU
+      
+      RD = [cInvalidRD, bInvalidRD, sInvalidRD, rInvalidRD, dInvalidRD]
+      LU = [cInvalidLU, bInvalidLU, sInvalidLU, rInvalidLU, dInvalidLU]
 
-  #Checks the ship and direction to set map borders
-    if Ship == "C" and Dir == "R" or Ship == "C" and Dir == "D":
-      borderCheck = cInvalidRD
-    elif Ship == "C" and Dir == "L" or Ship == "C" and Dir == "U":
-      borderCheck = cInvalidLU
-    elif Ship == "B" and Dir == "R" or Ship == "C" and Dir == "D":
-      borderCheck = bInvalidRD
-    elif Ship == "B" and Dir == "L" or Ship == "C" and Dir == "U":
-      borderCheck = bInvalidLU
-    elif Ship == "S" and Dir == "R" or Ship == "C" and Dir == "D":
-      borderCheck = sInvalidRD
-    elif Ship == "S" and Dir == "L" or Ship == "C" and Dir == "U":
-      borderCheck = sInvalidLU
-    elif Ship == "R" and Dir == "R" or Ship == "C" and Dir == "D":
-      borderCheck = rInvalidRD
-    elif Ship == "R" and Dir == "L" or Ship == "C" and Dir == "U":
-      borderCheck = rInvalidLU
-    elif Ship == "D" and Dir == "R" or Ship == "C" and Dir == "D":
-      borderCheck = dInvalidRD
-    elif Ship == "D" and Dir == "L" or Ship == "C" and Dir == "U":
-      borderCheck = dInvalidLU
-    
-    RD = [cInvalidRD, bInvalidRD, sInvalidRD, rInvalidRD, dInvalidRD]
-    LU = [cInvalidLU, bInvalidLU, sInvalidLU, rInvalidLU, dInvalidLU]
+      #Border checking
+      if borderCheck in RD and Row in borderCheck:
+        for j in range(50):
+          print("")      
+        print("Invalid")
+      elif borderCheck in RD and Col in borderCheck:
+        for j in range(50):
+          print("")
+        print("Invalid")
+      elif borderCheck in LU and Row in borderCheck:
+        for j in range(50):
+          print("")      
+        print("Invalid")
+      elif borderCheck in LU and Col in borderCheck:
+        for j in range(50):
+          print("")
+        print("Invalid")
+      else:
+        board[Row][Col] = Ship
+        
+        if Dir == "R":
+            for i in range(count -1):
+              Col += 1
+              board[Row][Col] = Ship
+        elif Dir == "D":
+            for i in range(count -1):
+              Row += 1
+              board[Row][Col] = Ship
+        elif Dir == "L":
+            for i in range(count -1):
+              Col -= 1
+              board[Row][Col] = Ship
+        elif Dir == "U":
+            for i in range(count -1):
+              Row -= 1
+              board[Row][Col] = Ship
 
-    #Border checking
-    if borderCheck in RD and Row in borderCheck:
-      for j in range(50):
-        print("")      
-      print("Invalid")
-    elif borderCheck in RD and Col in borderCheck:
-      for j in range(50):
-        print("")
-      print("Invalid")
-    elif borderCheck in LU and Row in borderCheck:
-      for j in range(50):
-        print("")      
-      print("Invalid")
-    elif borderCheck in LU and Col in borderCheck:
-      for j in range(50):
-        print("")
-      print("Invalid")
+        ships.remove(Ship)
+        placable.remove(count)
+        
+        if ships == []:
+          running = False
+
+        for j in range(50):
+          print("")
     else:
-      board[Row][Col] = Ship
-      
-      if Dir == "R":
-          for i in range(count -1):
-            Col += 1
-            board[Row][Col] = Ship
-      elif Dir == "D":
-          for i in range(count -1):
-            Row += 1
-            board[Row][Col] = Ship
-      elif Dir == "L":
-          for i in range(count -1):
-            Col -= 1
-            board[Row][Col] = Ship
-      elif Dir == "U":
-          for i in range(count -1):
-            Row -= 1
-            board[Row][Col] = Ship
-
-      ships.remove(Ship)
-      placable.remove(count)
-
-      if movesLeft > 5:
-        running = False
-      movesLeft = movesLeft + 1
-      
       for j in range(50):
         print("")
-  else:
-    for j in range(50):
-      print("")
-    print("Invalid")
+      print("Invalid")
+placeLoop()
+
+printBoard()
+confirm = input("Confirm board? Y/N > ").upper()
+if confirm == "N":
+  for j in range(50):
+    print("")
+  board = []
+  for i in range(10):
+    board.append(["⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆"])
+  ships = [   "C", "B", "S", "R", "D"]
+  placable = [ 5,   4,   3,   3,   2]
+  placeLoop()
