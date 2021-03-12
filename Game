@@ -1,6 +1,133 @@
-def cpuBoard():
-  cpuBoard = []
-  
+import random
+def printCpu():
+  print("  _0_1_2_3_4_5_6_7_8_9")
+  r = 0
+  for row in cpuBoard:
+    print(r, end = "| ")
+    r += 1
+    for elem in row:
+      print(elem,end = " ")
+    print()
+def cpu():
+  for i in range(10):
+    cpuBoard.append(["⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆", "⋆"])
+  cpuShips = [   "C", "B", "S", "R", "D"]
+  cpuPlacable = [ 5,   4,   3,   3,   2]
+  cpuChoice = "C"
+  for q in range(5):
+
+    cpuIdx = cpuShips.index(cpuChoice)
+    cpuCount = cpuPlacable[cpuIdx]
+    if cpuChoice == "C":
+      cRow = random.randint(0, 9)
+      cCol = random.randint(0, 9)
+      cDir = random.randint(1, 4)
+      cpuBoard[cRow][cCol] = cpuChoice
+      if cDir == 1:
+          for i in range(cpuCount -1):
+            cCol += 1
+            cpuBoard[cRow][cCol] = cpuChoice
+      elif cDir == 2:
+          for i in range(cpuCount -1):
+            cRow += 1
+            cpuBoard[cRow][cCol] = cpuChoice
+      elif cDir == 3:
+          for i in range(cpuCount -1):
+            cCol -= 1
+            cpuBoard[cRow][cCol] = cpuChoice
+      elif cDir == 4:
+          for i in range(cpuCount -1):
+            cRow -= 1
+            cpuBoard[cRow][cCol] = cpuChoice
+      cpuChoice = "B"
+    if cpuChoice == "B":
+      bRow = random.randint(0, 9)
+      bCol = random.randint(0, 9)
+      bDir = random.randint(1, 4)
+      cpuBoard[bRow][bCol] = cpuChoice
+      if bDir == 1:
+          for i in range(cpuCount -1):
+            bCol += 1
+            cpuBoard[bRow][bCol] = cpuChoice
+      elif bDir == 2:
+          for i in range(cpuCount -1):
+            bRow += 1
+            cpuBoard[bRow][bCol] = cpuChoice
+      elif bDir == 3:
+          for i in range(cpuCount -1):
+            bCol -= 1
+            cpuBoard[bRow][bCol] = cpuChoice
+      elif bDir == 4:
+          for i in range(cpuCount -1):
+            bRow -= 1
+            cpuBoard[bRow][bCol] = cpuChoice
+      cpuChoice = "S"
+    if cpuChoice == "S":
+      sRow = random.randint(0, 9)
+      sCol = random.randint(0, 9)
+      sDir = random.randint(1, 4)
+      cpuBoard[sRow][sCol] = cpuChoice
+      if sDir == 1:
+          for i in range(cpuCount -1):
+            sCol += 1
+            cpuBoard[sRow][sCol] = cpuChoice
+      elif sDir == 2:
+          for i in range(cpuCount -1):
+            sRow += 1
+            cpuBoard[sRow][sCol] = cpuChoice
+      elif sDir == 3:
+          for i in range(cpuCount -1):
+            sCol -= 1
+            cpuBoard[sRow][sCol] = cpuChoice
+      elif sDir == 4:
+          for i in range(cpuCount -1):
+            sRow -= 1
+            cpuBoard[sRow][sCol] = cpuChoice
+      cpuChoice = "R"
+    if cpuChoice == "R":
+      rRow = random.randint(0, 9)
+      rCol = random.randint(0, 9)
+      rDir = random.randint(1, 4)
+      cpuBoard[rRow][rCol] = cpuChoice
+      if rDir == 1:
+          for i in range(cpuCount -1):
+            rCol += 1
+            cpuBoard[rRow][rCol] = cpuChoice
+      elif rDir == 2:
+          for i in range(cpuCount -1):
+            rRow += 1
+            cpuBoard[rRow][rCol] = cpuChoice
+      elif rDir == 3:
+          for i in range(cpuCount -1):
+            rCol -= 1
+            cpuBoard[rRow][rCol] = cpuChoice
+      elif rDir == 4:
+          for i in range(cpuCount -1):
+            rRow -= 1
+            cpuBoard[rRow][rCol] = cpuChoice
+      cpuChoice = "D"
+    if cpuChoice == "D":
+      dRow = random.randint(0, 9)
+      dCol = random.randint(0, 9)
+      dDir = random.randint(1, 4)
+      cpuBoard[dRow][dCol] = cpuChoice
+      if dDir == 1:
+          for i in range(cpuCount -1):
+            dCol += 1
+            cpuBoard[dRow][dCol] = cpuChoice
+      elif dDir == 2:
+          for i in range(cpuCount -1):
+            dRow += 1
+            cpuBoard[dRow][dCol] = cpuChoice
+      elif dDir == 3:
+          for i in range(cpuCount -1):
+            dCol -= 1
+            cpuBoard[dRow][dCol] = cpuChoice
+      elif dDir == 4:
+          for i in range(cpuCount -1):
+            dRow -= 1
+            cpuBoard[dRow][dCol] = cpuChoice
+  printCpu()
 def printBoard():
   print("  _0_1_2_3_4_5_6_7_8_9")
   r = 0
@@ -36,6 +163,7 @@ null = 69420911666
 borderCheck = str(null)
 
 board = []
+cpuBoard = []
 
 for j in range(50):
   print("")
@@ -45,7 +173,7 @@ for i in range(10):
 
 ships = [   "C", "B", "S", "R", "D"]
 placable = [ 5,   4,   3,   3,   2]
-print("B A T T L E   S H I P")
+print(" B A T T L E   S H I P")
 def placeLoop():
   running = True
   while running:
@@ -72,21 +200,21 @@ def placeLoop():
         borderCheck = cInvalidRD
       elif Ship == "C" and Dir == "L" or Ship == "C" and Dir == "U":
         borderCheck = cInvalidLU
-      elif Ship == "B" and Dir == "R" or Ship == "C" and Dir == "D":
+      elif Ship == "B" and Dir == "R" or Ship == "B" and Dir == "D":
         borderCheck = bInvalidRD
-      elif Ship == "B" and Dir == "L" or Ship == "C" and Dir == "U":
+      elif Ship == "B" and Dir == "L" or Ship == "B" and Dir == "U":
         borderCheck = bInvalidLU
-      elif Ship == "S" and Dir == "R" or Ship == "C" and Dir == "D":
+      elif Ship == "S" and Dir == "R" or Ship == "S" and Dir == "D":
         borderCheck = sInvalidRD
-      elif Ship == "S" and Dir == "L" or Ship == "C" and Dir == "U":
+      elif Ship == "S" and Dir == "L" or Ship == "S" and Dir == "U":
         borderCheck = sInvalidLU
-      elif Ship == "R" and Dir == "R" or Ship == "C" and Dir == "D":
+      elif Ship == "R" and Dir == "R" or Ship == "R" and Dir == "D":
         borderCheck = rInvalidRD
-      elif Ship == "R" and Dir == "L" or Ship == "C" and Dir == "U":
+      elif Ship == "R" and Dir == "L" or Ship == "R" and Dir == "U":
         borderCheck = rInvalidLU
-      elif Ship == "D" and Dir == "R" or Ship == "C" and Dir == "D":
+      elif Ship == "D" and Dir == "R" or Ship == "D" and Dir == "D":
         borderCheck = dInvalidRD
-      elif Ship == "D" and Dir == "L" or Ship == "C" and Dir == "U":
+      elif Ship == "D" and Dir == "L" or Ship == "D" and Dir == "U":
         borderCheck = dInvalidLU
       
       RD = [cInvalidRD, bInvalidRD, sInvalidRD, rInvalidRD, dInvalidRD]
@@ -128,6 +256,10 @@ def placeLoop():
             for i in range(count -1):
               Row -= 1
               board[Row][Col] = Ship
+        else:
+          for j in range(50):
+            print("")
+          print("Invalid")
 
         ships.remove(Ship)
         placable.remove(count)
@@ -154,3 +286,5 @@ if confirm == "N":
   ships = [   "C", "B", "S", "R", "D"]
   placable = [ 5,   4,   3,   3,   2]
   placeLoop()
+else:
+  cpu()
